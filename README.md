@@ -8,8 +8,8 @@
 ### How to Run
 
 ````
-$ git clone https://github.com/barclayd/SpaceInvaders.git
-$ cd SpaceInvaders
-$ python space_invaders.py
+$ git clone https://github.com/barclayd/Python-Pong.git
+$ cd Python-Pong
+$ python pong.py
 ````
-Pong game will now open in a new window and you can start playing!
+Pong will now open in a new window and you can start playing!
