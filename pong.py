@@ -1,4 +1,5 @@
 import turtle
+import random
 
 # setup
 wn = turtle.Screen()
@@ -32,11 +33,11 @@ ball.speed(0)
 ball.shape("square")
 ball.color("white")
 ball.penup()
-ball.dx = 0.75
-ball.dy = -0.75
+ball.dx = 0
+ball.dy = 0
 
-# ball movement
-
+# game state
+new_game = True
 
 # speed controls
 
@@ -73,22 +74,36 @@ def move_paddle_b_down():
         y -= paddle_b_speed
     paddle_b.sety(y)
 
+
+def start_game():
+        if new_game:
+            ball.dx = random.choice([-1, 1])
+            ball.dy = random.choice([-1, 1])
+
+
 # keybindings
 
 turtle.listen()
 turtle.onkeypress(move_paddle_a_up, "w")
 turtle.onkeypress(move_paddle_a_down, "s")
-turtle.onkeypress(move_paddle_b_up, "Left")
-turtle.onkeypress(move_paddle_b_down, "Right")
+turtle.onkeypress(move_paddle_b_up, "Up")
+turtle.onkeypress(move_paddle_b_down, "Down")
+turtle.onkeypress(start_game, "space")
+
+
+
 
 # Game loop
 while True:
     wn.update()
 
     # move ball
-    dx = ball.dx
-    ball.setx(ball.xcor() + dx)
+    ball.setx(ball.xcor() + ball.dx)
     ball.sety(ball.ycor() + ball.dy)
+
+    # if ball has moved
+    if ball.xcor() != 0 and ball.ycor() !=0:
+        new_game = False
 
     # border checking
     if ball.xcor() > 390:
@@ -106,4 +121,15 @@ while True:
     if ball.ycor() < -290:
         ball.sety(-290)
         ball.dy *= -1
+
+    # paddle A and ball collision
+    if (ball.xcor() < -330 and ball.xcor() > -350) and (
+            ball.ycor() < paddle_a.ycor() + 40 and ball.ycor() > paddle_a.ycor() - 40):
+        ball.setx(-330)
+        ball.dx *= -1
+
+    # paddle B and ball collision
+    if (ball.xcor() > 330 and ball.xcor() < 350) and (ball.ycor() < paddle_b.ycor() + 40 and ball.ycor() > paddle_b.ycor() - 40):
+        ball.setx(330)
+        ball.dx *= -1
 
