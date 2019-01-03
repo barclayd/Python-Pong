@@ -1,6 +1,6 @@
 import turtle
 import random
-import os
+import winsound
 
 # setup
 wn = turtle.Screen()
@@ -179,7 +179,7 @@ while True:
         paddle_a_score.write(paddle_a_score_message, False, align="center", font=("Verdana", 18, "normal"))
         ball.goto(0, 0)
         ball.dx *= -1
-        os.system("afplay ./audio/point_gained.wav&")
+        winsound.PlaySound("./audio/point_gained.wav", winsound.SND_ASYNC)
 
     if ball.xcor() < -390:
         paddle_b_score_count += 1
@@ -188,29 +188,29 @@ while True:
         paddle_b_score.write(paddle_b_score_message, False, align="center", font=("Verdana", 18, "normal"))
         ball.goto(0, 0)
         ball.dx *= -1
-        os.system("afplay ./audio/point_gained.wav&")
+        winsound.PlaySound("./audio/point_gained.wav", winsound.SND_ASYNC)
 
     if ball.ycor() > 290:
         ball.sety(290)
         ball.dy *= -1
-        os.system("afplay ./audio/hit_wall.wav&")
+        winsound.PlaySound("./audio/hit_wall.wav", winsound.SND_ASYNC)
 
 
     if ball.ycor() < -290:
         ball.sety(-290)
         ball.dy *= -1
-        os.system("afplay ./audio/hit_wall.wav&")
+        winsound.PlaySound("./audio/hit_wall.wav", winsound.SND_ASYNC)
 
     # paddle A and ball collision
     if (ball.xcor() < -330 and ball.xcor() > -350) and (
             ball.ycor() < paddle_a.ycor() + 40 and ball.ycor() > paddle_a.ycor() - 40):
         ball.setx(-330)
         ball.dx *= -1
-        os.system("afplay ./audio/hit_paddle.wav&")
+        winsound.PlaySound("./audio/hit_paddle.wav", winsound.SND_ASYNC)
 
     # paddle B and ball collision
     if (ball.xcor() > 330 and ball.xcor() < 350) and (ball.ycor() < paddle_b.ycor() + 40 and ball.ycor() > paddle_b.ycor() - 40):
         ball.setx(330)
         ball.dx *= -1
-        os.system("afplay ./audio/hit_paddle.wav&")
+        winsound.PlaySound("./audio/hit_paddle.wav", winsound.SND_ASYNC)
 
