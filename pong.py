@@ -39,10 +39,52 @@ ball.dy = 0
 # game state
 new_game = True
 
+# game welcome
+
+welcome_message = " Arcade Pong (2 player game)"
+welcome_pen = turtle.Turtle()
+welcome_pen.speed(0)
+welcome_pen.color("blue")
+welcome_pen.penup()
+welcome_pen.setposition(0, 100)
+welcome_pen.write(welcome_message, False, align="center", font=("Verdana", 36, "bold"))
+welcome_pen.hideturtle()
+
+intro_message = "Press Space to Begin"
+intro_pen = turtle.Turtle()
+intro_pen.speed(0)
+intro_pen.color("white")
+intro_pen.penup()
+intro_pen.setposition(0, 50)
+intro_pen.write(intro_message, False, align="center", font=("Verdana", 24, "bold"))
+intro_pen.hideturtle()
+
+
+# scoring
+
+paddle_a_score_count = 0
+paddle_a_score_message = "Player A: %s" % paddle_a_score_count
+paddle_a_score = turtle.Turtle()
+paddle_a_score.speed(0)
+paddle_a_score.color("red")
+paddle_a_score.penup()
+paddle_a_score.setposition(-100, 270)
+paddle_a_score.hideturtle()
+
+
+paddle_b_score_count = 0
+paddle_b_score_message = "Player B: %s" % paddle_b_score_count
+paddle_b_score = turtle.Turtle()
+paddle_b_score.speed(0)
+paddle_b_score.color("blue")
+paddle_b_score.penup()
+paddle_b_score.setposition(100, 270)
+paddle_b_score.hideturtle()
+
 # speed controls
 
-paddle_a_speed = 15
-paddle_b_speed = 15
+paddle_a_speed = 30
+paddle_b_speed = 30
 
 # game controls
 
@@ -63,22 +105,24 @@ def move_paddle_a_down():
 
 def move_paddle_b_up():
     y = paddle_b.ycor()
-    if y < 232:
+    if y < 236:
         y += paddle_b_speed
     paddle_b.sety(y)
 
 
 def move_paddle_b_down():
     y = paddle_b.ycor()
-    if y > -225:
+    if y > -212:
         y -= paddle_b_speed
     paddle_b.sety(y)
 
 
 def start_game():
         if new_game:
-            ball.dx = random.choice([-1, 1])
-            ball.dy = random.choice([-1, 1])
+            ball.dx = random.choice([-4, 4])
+            ball.dy = random.choice([-4, 4])
+            welcome_pen.clear()
+            intro_pen.clear()
 
 
 # keybindings
@@ -86,7 +130,7 @@ def start_game():
 turtle.listen()
 turtle.onkeypress(move_paddle_a_up, "w")
 turtle.onkeypress(move_paddle_a_down, "s")
-turtle.onkeypress(move_paddle_b_up, "Up")
+turtle.onkeypress(move_paddle_b_up, " Up")
 turtle.onkeypress(move_paddle_b_down, "Down")
 turtle.onkeypress(start_game, "space")
 
@@ -96,6 +140,10 @@ turtle.onkeypress(start_game, "space")
 # Game loop
 while True:
     wn.update()
+
+    if new_game == False and paddle_a_score_count == 0 and paddle_b_score_count == 0:
+        paddle_a_score.write(paddle_a_score_message, False, align="center", font=("Verdana", 18, "normal"))
+        paddle_b_score.write(paddle_b_score_message, False, align="center", font=("Verdana", 18, "normal"))
 
     # move ball
     ball.setx(ball.xcor() + ball.dx)
@@ -107,10 +155,18 @@ while True:
 
     # border checking
     if ball.xcor() > 390:
+        paddle_a_score_count += 1
+        paddle_a_score.clear()
+        paddle_a_score_message = "Player A: %s" % paddle_a_score_count
+        paddle_a_score.write(paddle_a_score_message, False, align="center", font=("Verdnana", 18, "normal"))
         ball.goto(0, 0)
         ball.dx *= -1
 
     if ball.xcor() < -390:
+        paddle_b_score_count += 1
+        paddle_b_score_message = "Player B: %s" % paddle_b_score_count
+        paddle_b_score.clear()
+        paddle_b_score.write(paddle_b_score_message, False, align="center", font=("Verdnana", 18, "normal"))
         ball.goto(0, 0)
         ball.dx *= -1
 
