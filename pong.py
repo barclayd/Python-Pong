@@ -32,6 +32,47 @@ ball.speed(0)
 ball.shape("square")
 ball.color("white")
 
+# speed controls
+
+paddle_a_speed = 15
+paddle_b_speed = 15
+
+# game controls
+
+def move_paddle_a_up():
+    y = paddle_a.ycor()
+    if y < 232:
+        y += paddle_a_speed
+    paddle_a.sety(y)
+
+def move_paddle_a_down():
+    y = paddle_a.ycor()
+    if y > -225:
+        y -= paddle_a_speed
+    paddle_a.sety(y)
+
+def move_paddle_b_up():
+    y = paddle_b.ycor()
+    if y < 232:
+        y += paddle_b_speed
+    paddle_b.sety(y)
+
+def move_paddle_b_down():
+    y = paddle_b.ycor()
+    if y > -225:
+        y -= paddle_b_speed
+    paddle_b.sety(y)
+
+# keybindings
+
+turtle.listen()
+turtle.onkeypress(move_paddle_a_up, "w")
+turtle.onkeypress(move_paddle_a_down, "s")
+turtle.onkeypress(move_paddle_b_up, "Left")
+turtle.onkeypress(move_paddle_b_down, "Right")
+
+
+
 
 # Game loop
 while True:
