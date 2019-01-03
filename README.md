@@ -6,7 +6,7 @@
 
 ### Demo
 
-![Game Play](https://user-images.githubusercontent.com/39765499/50654506-f90d2a00-0f84-11e9-9d29-9abf9cb4d495.gif)
+<img width="600" alt="start" src="https://user-images.githubusercontent.com/39765499/50654506-f90d2a00-0f84-11e9-9d29-9abf9cb4d495.gif">
 
 <img width="600" alt="start" src="https://user-images.githubusercontent.com/39765499/50654429-b8adac00-0f84-11e9-8dd9-f6bd18d9824b.png">
 
