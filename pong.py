@@ -31,6 +31,12 @@ ball = turtle.Turtle()
 ball.speed(0)
 ball.shape("square")
 ball.color("white")
+ball.penup()
+ball.dx = 0.75
+ball.dy = -0.75
+
+# ball movement
+
 
 # speed controls
 
@@ -39,11 +45,13 @@ paddle_b_speed = 15
 
 # game controls
 
+
 def move_paddle_a_up():
     y = paddle_a.ycor()
     if y < 232:
         y += paddle_a_speed
     paddle_a.sety(y)
+
 
 def move_paddle_a_down():
     y = paddle_a.ycor()
@@ -51,11 +59,13 @@ def move_paddle_a_down():
         y -= paddle_a_speed
     paddle_a.sety(y)
 
+
 def move_paddle_b_up():
     y = paddle_b.ycor()
     if y < 232:
         y += paddle_b_speed
     paddle_b.sety(y)
+
 
 def move_paddle_b_down():
     y = paddle_b.ycor()
@@ -71,9 +81,29 @@ turtle.onkeypress(move_paddle_a_down, "s")
 turtle.onkeypress(move_paddle_b_up, "Left")
 turtle.onkeypress(move_paddle_b_down, "Right")
 
-
-
-
 # Game loop
 while True:
     wn.update()
+
+    # move ball
+    dx = ball.dx
+    ball.setx(ball.xcor() + dx)
+    ball.sety(ball.ycor() + ball.dy)
+
+    # border checking
+    if ball.xcor() > 390:
+        ball.goto(0, 0)
+        ball.dx *= -1
+
+    if ball.xcor() < -390:
+        ball.goto(0, 0)
+        ball.dx *= -1
+
+    if ball.ycor() > 290:
+        ball.sety(290)
+        ball.dy *= -1
+
+    if ball.ycor() < -290:
+        ball.sety(-290)
+        ball.dy *= -1
+
